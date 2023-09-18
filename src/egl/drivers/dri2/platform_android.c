@@ -593,7 +593,7 @@ droid_get_pci_id(int fd, int *vendor_id, int *chip_id)
       *chip_id = 0;
    }
    else if (strcmp(version->name, "vmwgfx") == 0) {
-      *vendor_id = 0x15ad;
+      *vendor_id = 0x1960;
       /* assume SVGA II */
       *chip_id = 0x0405;
    }
