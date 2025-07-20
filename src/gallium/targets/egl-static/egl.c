@@ -173,7 +173,7 @@ drm_fd_get_pci_id(int fd, int *vendor_id, int *chip_id)
       *chip_id = 0;
    }
    else if (util_strcmp(version->name, "vmwgfx") == 0) {
-      *vendor_id = 0x1960;
+      *vendor_id = 0x2007;
       /* assume SVGA II */
       *chip_id = 0x0405;
    }
