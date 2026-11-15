@@ -56,7 +56,14 @@
 #ifdef HAVE_ANDROID_PLATFORM
 #define LOG_TAG "EGL-DRI2"
 
-#include <system/window.h>
+#if ANDROID_VERSION >= 0x0400
+#  include <system/window.h>
+#else
+#  define android_native_buffer_t ANativeWindowBuffer
+#  include <ui/egl/android_natives.h>
+#  include <ui/android_native_buffer.h>
+#endif
+
 #include <hardware/gralloc.h>
 #include <gralloc_drm_handle.h>
 #include <cutils/log.h>

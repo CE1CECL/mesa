@@ -48,7 +48,7 @@ vl_drm_screen_create(int fd)
    if (!vscreen)
       return NULL;
 
-   if (fd < 0 || (new_fd = fcntl(fd, F_DUPFD_CLOEXEC, 3)) < 0)
+   if (fd < 0 || (new_fd = dup(fd)) < 0)
       goto free_screen;
 
    if (pipe_loader_drm_probe_fd(&vscreen->dev, new_fd))

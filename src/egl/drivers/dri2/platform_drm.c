@@ -697,7 +697,7 @@ dri2_initialize_drm(_EGLDriver *drv, _EGLDisplay *disp)
       }
       dri2_dpy->own_device = 1;
    } else {
-      fd = fcntl(gbm_device_get_fd(gbm), F_DUPFD_CLOEXEC, 3);
+      fd = dup(gbm_device_get_fd(gbm));
       if (fd < 0) {
          err = "DRI2: failed to fcntl() existing gbm device";
          goto cleanup;

@@ -158,7 +158,7 @@ xa_tracker_create(int drm_fd)
     if (!xa)
 	return NULL;
 
-    if (drm_fd < 0 || (fd = fcntl(drm_fd, F_DUPFD_CLOEXEC, 3)) < 0)
+    if (drm_fd < 0 || (fd = dup(drm_fd)) < 0)
 	goto out_no_fd;
 
     if (pipe_loader_drm_probe_fd(&xa->dev, fd))

@@ -92,7 +92,7 @@ nouveau_drm_screen_create(int fd)
 	 * nouveau_device_wrap does not close the fd in case of a device
 	 * creation error.
 	 */
-	dupfd = fcntl(fd, F_DUPFD_CLOEXEC, 3);
+	dupfd = dup(fd);
 
 	ret = nouveau_drm_new(dupfd, &drm);
 	if (ret)

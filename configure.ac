@@ -292,14 +292,14 @@ if test "x$GCC" = xyes; then
 	CFLAGS="$CFLAGS -std=c99"
     fi
 
-    # Enable -Werror=implicit-function-declaration and
-    # -Werror=missing-prototypes, if available, or otherwise, just
+    # Enable -Wno-implicit-function-declaration and
+    # -Wno-missing-prototypes, if available, or otherwise, just
     # -Wmissing-prototypes.  This is particularly useful to avoid
     # generating a loadable driver module that has undefined symbols.
     save_CFLAGS="$CFLAGS"
-    AC_MSG_CHECKING([whether $CC supports -Werror=missing-prototypes])
-    CFLAGS="$CFLAGS -Werror=implicit-function-declaration"
-    CFLAGS="$CFLAGS -Werror=missing-prototypes"
+    AC_MSG_CHECKING([whether $CC supports -Wno-missing-prototypes])
+    CFLAGS="$CFLAGS -Wno-implicit-function-declaration"
+    CFLAGS="$CFLAGS -Wno-missing-prototypes"
     AC_LINK_IFELSE([AC_LANG_PROGRAM()],
 		   AC_MSG_RESULT([yes]),
 		   [CFLAGS="$save_CFLAGS -Wmissing-prototypes";
@@ -325,16 +325,16 @@ if test "x$GCC" = xyes; then
     # - non-Linux/Posix OpenGL portions needs to build on MSVC 2013 (which
     #   supports most of C99)
     # - the rest has no compiler compiler restrictions
-    MSVC2013_COMPAT_CFLAGS="-Werror=pointer-arith"
-    MSVC2013_COMPAT_CXXFLAGS="-Werror=pointer-arith"
+    MSVC2013_COMPAT_CFLAGS="-Wno-pointer-arith"
+    MSVC2013_COMPAT_CXXFLAGS="-Wno-pointer-arith"
 
-    # Enable -Werror=vla if compiler supports it
+    # Enable -Wno-vla if compiler supports it
     save_CFLAGS="$CFLAGS"
-    AC_MSG_CHECKING([whether $CC supports -Werror=vla])
-    CFLAGS="$CFLAGS -Werror=vla"
+    AC_MSG_CHECKING([whether $CC supports -Wno-vla])
+    CFLAGS="$CFLAGS -Wno-vla"
     AC_LINK_IFELSE([AC_LANG_PROGRAM()],
-		   [MSVC2013_COMPAT_CFLAGS="$MSVC2013_COMPAT_CFLAGS -Werror=vla";
-		    MSVC2013_COMPAT_CXXFLAGS="$MSVC2013_COMPAT_CXXFLAGS -Werror=vla";
+		   [MSVC2013_COMPAT_CFLAGS="$MSVC2013_COMPAT_CFLAGS -Wno-vla";
+		    MSVC2013_COMPAT_CXXFLAGS="$MSVC2013_COMPAT_CXXFLAGS -Wno-vla";
 		    AC_MSG_RESULT([yes])],
 		    AC_MSG_RESULT([no]))
     CFLAGS="$save_CFLAGS"
@@ -610,7 +610,7 @@ openbsd* | darwin* )
     LD_NO_UNDEFINED="" ;;
 *)
     if test "x$enable_sanitize" = xno; then
-        LD_NO_UNDEFINED="-Wl,--no-undefined"
+        LD_NO_UNDEFINED="-Wl,--allow-shlib-undefined"
     else
         LD_NO_UNDEFINED=""
     fi

@@ -756,7 +756,7 @@ radeon_drm_winsys_create(int fd, radeon_screen_create_t screen_create)
         return NULL;
     }
 
-    ws->fd = fcntl(fd, F_DUPFD_CLOEXEC, 3);
+    ws->fd = dup(fd);
 
     if (!do_winsys_init(ws))
         goto fail1;

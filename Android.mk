@@ -32,6 +32,15 @@
 MESA_TOP := $(call my-dir)
 
 MESA_ANDROID_MAJOR_VERSION := $(word 1, $(subst ., , $(PLATFORM_VERSION)))
+MESA_ANDROID_MINOR_VERSION := $(word 2, $(subst ., , $(PLATFORM_VERSION)))
+MESA_ANDROID_VERSION := $(MESA_ANDROID_MAJOR_VERSION).$(MESA_ANDROID_MINOR_VERSION)
+ifeq ($(filter 1 2 3 4,$(MESA_ANDROID_MAJOR_VERSION)),)
+MESA_LOLLIPOP_BUILD := true
+else
+define local-generated-sources-dir
+$(call local-intermediates-dir)
+endef
+endif
 
 MESA_DRI_MODULE_REL_PATH := dri
 MESA_DRI_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/$(MESA_DRI_MODULE_REL_PATH)
@@ -39,6 +48,9 @@ MESA_DRI_MODULE_UNSTRIPPED_PATH := $(TARGET_OUT_SHARED_LIBRARIES_UNSTRIPPED)/$(M
 
 MESA_COMMON_MK := $(MESA_TOP)/Android.common.mk
 MESA_PYTHON2 := python
+
+DRM_TOP := external/libdrm
+DRM_GRALLOC_TOP := hardware/drm_gralloc
 
 classic_drivers := i915 i965
 gallium_drivers := swrast freedreno i915g nouveau r300g r600g radeonsi vmwgfx vc4 virgl
